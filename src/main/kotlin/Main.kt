@@ -43,7 +43,7 @@ class Bod(private var x: Float = 0.0F, private var y: Float = 0.0F) //primarny k
         }
     }
     override fun toString(): String = "[$x,$y]"
-    fun getDistance(other:Bod=Bod(0.0F,0.0F)): Double =sqrt(((this.x - other.x).toDouble()).pow(2.0) -(this.y-other.y)*(this.y-other.y))
+    fun getDistance(other:Bod=Bod(0.0F,0.0F)): Double =sqrt(((this.x - other.x).toDouble()).pow(2.0) +(this.y-other.y)*(this.y-other.y))
     fun getCenter(other: Bod=Bod(0.0F,0.0F))=(this+other)/2.0F
     //fun getCenter(other: Bod=Bod(0.0F,0.0F))=Bod((this.x+other.x)/2,(this.y+other.y)/2)
     operator fun Bod.plus(other: Bod)=Bod(this.x+other.x,this.y+other.y)
@@ -52,11 +52,12 @@ class Bod(private var x: Float = 0.0F, private var y: Float = 0.0F) //primarny k
 }
 
 fun main() {
-    val A = Bod(3.0F)
+    val A = Bod(3.0F,1.0F)
     println(A)
-    val B = Bod(3.0F,5.0F)
+    val B = Bod(4.0F,5.0F)
     println(B)
-    val C= Bod()
-    println(C)
+    //val C= Bod()
+    //println(C)
+    print(String.format("%.2f",B.getDistance(A)))
 //println("Program arguments: ${args.joinToString()}")
 }
