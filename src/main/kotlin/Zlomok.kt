@@ -97,10 +97,10 @@ class Zlomok(private var cit: Int, private var men: Int = 1)
     {
         return "$cit/$men"
     }
-    operator fun Zlomok.plus(other:Zlomok)=Zlomok(cit*other.men+men*other.cit,men*other.men)
-    operator fun Zlomok.minus(other:Zlomok)=Zlomok(cit*other.men-men*other.cit,men*other.men)
-    operator fun Zlomok.times(other:Zlomok)=Zlomok(cit*other.cit,men*other.men)
-    operator fun Zlomok.div(other:Zlomok)=Zlomok(cit*other.men,men*other.cit)
+    operator fun plus(other:Zlomok)=Zlomok(cit*other.men+men*other.cit,men*other.men)
+    operator fun minus(other:Zlomok)=Zlomok(cit*other.men-men*other.cit,men*other.men)
+    operator fun times(other:Zlomok)=Zlomok(cit*other.cit,men*other.men)
+    operator fun div(other:Zlomok)=Zlomok(cit*other.men,men*other.cit)
 
     private fun nsd(nom:Int,den:Int):Int
     {

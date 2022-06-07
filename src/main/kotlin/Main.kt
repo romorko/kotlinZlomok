@@ -1,6 +1,5 @@
-
-
-fun main() {
+fun main()
+{
     /*val A = Bod(3.0F,1.0F)
     println(A)
     val B = Bod(4.0F,5.0F)
@@ -15,6 +14,8 @@ fun main() {
     println(z2)
     val z3=Zlomok(3,4)
     println(z3)*/
-    val z4=Zlomok("5/20")
-    println(z4)
+    val z4 = Zlomok("5/20")
+    val z6 = Zlomok("18/27")
+    val z = z4 + z6
+    print("$z4 + $z6 = $z")
 }
