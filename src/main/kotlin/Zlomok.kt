@@ -64,14 +64,14 @@ class Zlomok(private var cit: Int, private var men: Int = 1)
 {
     init
     {
-        if (men == 0)
+        if (this.men == 0)
         {
             print("Menovatel nesmie byt nula! ")
-            men = getInt(ajNula = false)
+            this.men = getInt(ajNula = false)
         }
-        val spolocny=nsd(cit,men)
-        cit/=spolocny
-        men/=spolocny
+        val spolocny=nsd(this.cit, this.men)
+        this.cit /=spolocny
+        this.men /=spolocny
 
     }
 
@@ -80,11 +80,11 @@ class Zlomok(private var cit: Int, private var men: Int = 1)
         if (zlom.indexOf("/") != -1) //je tam lonitko
         {
             val cisla = zlom.split(Regex("/"))
-            cit = checkInt(ajNulaMozna = true, preved = cisla[0].trim())
-            men = checkInt(ajNulaMozna = false, preved = cisla[1].trim())
+            this.cit = checkInt(ajNulaMozna = true, preved = cisla[0].trim())
+            this.men = checkInt(ajNulaMozna = false, preved = cisla[1].trim())
             val spolocny=nsd(cit,men)
-            cit/=spolocny
-            men/=spolocny
+            this.cit /=spolocny
+            this.men /=spolocny
         }
         else
         {
@@ -102,16 +102,16 @@ class Zlomok(private var cit: Int, private var men: Int = 1)
     operator fun Zlomok.times(other:Zlomok)=Zlomok(cit*other.cit,men*other.men)
     operator fun Zlomok.div(other:Zlomok)=Zlomok(cit*other.men,men*other.cit)
 
-    fun nsd(nom:Int,den:Int):Int
+    private fun nsd(nom:Int,den:Int):Int
     {
         var t:Int
         var d = den
         var n = nom
         while (d != 0)
         {
-            t = d;
-            d = nom % den;
-            n = t;
+            t = d
+            d = n % d
+            n = t
         }
         return n
     }
