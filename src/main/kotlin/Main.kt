@@ -15,6 +15,6 @@ fun main() {
     println(z2)
     val z3=Zlomok(3,4)
     println(z3)*/
-    val z4=Zlomok("5a/9")
+    val z4=Zlomok("5/0")
     println(z4)
 }

@@ -1,29 +1,22 @@
-fun getInt(text: String = "Zadaj cislo:",
-           min: Int = -100,
-           max: Int = 100,
-           ajNula: Boolean = true,
-           lenKontrola: Boolean = false,
-           kontroluj: String = ""): Int
+fun getInt(
+    text: String = "Zadaj cislo:",
+    min: Int = -100,
+    max: Int = 100,
+    ajNula: Boolean = true,
+): Int
 {
     var cislo: Int
     while (true)
     {
         try
         {
-            if (!lenKontrola)//ak si pytam cislo
+            print("$text z intervalu <$min , $max>: ")
+            cislo = readLine()!!.toInt()
+            if (cislo < min || cislo > max)
             {
-                print("$text z intervalu <$min , $max>: ")
-                cislo = readLine()!!.toInt()
-                if (cislo < min || cislo > max)
-                {
-                    throw NoNumber("Zadane cislo $cislo nepatri do stanoveneho intervalu <$min,$max>!\n")
-                }
+                throw NoNumber("Zadane cislo $cislo nepatri do stanoveneho intervalu <$min,$max>!\n")
             }
-            else
-            {
-                cislo = kontroluj.toInt()
-            }
-            if (ajNula == false && cislo == 0)
+            if (!ajNula && cislo == 0)
             {
                 throw NoNumber("Cislo nemoze byt nula!\n")
             }
@@ -40,7 +33,34 @@ fun getInt(text: String = "Zadaj cislo:",
     }
 }
 
-class Zlomok(var cit: Int, var men: Int = 1)
+fun checkInt(preved: String, ajNulaMozna: Boolean): Int
+{
+    var cislo: Int
+    while (true)
+    {
+        try
+        {
+            cislo = preved.toInt()
+            if (!ajNulaMozna && cislo == 0)
+            {
+                throw NoNumber("Cislo nemoze byt nula!\n")
+            }
+        }
+        catch (e: java.lang.NumberFormatException)
+        {
+            print("Nebolo zadane cislo!")
+            cislo = getInt(ajNula = ajNulaMozna)
+        }
+        catch (e:NoNumber)
+        {
+            print(e.message)
+            cislo = getInt(ajNula = ajNulaMozna)
+        }
+        return cislo
+    }
+}
+
+class Zlomok(private var cit: Int, private var men: Int = 1)
 {
     init
     {
@@ -53,21 +73,21 @@ class Zlomok(var cit: Int, var men: Int = 1)
 
     constructor(zlom: String) : this(0, 1)
     {
-        if (zlom.indexOf("/") != -1)
+        if (zlom.indexOf("/") != -1) //je tam lonitko
         {
             val cisla = zlom.split(Regex("/"))
-            cit = getInt(lenKontrola = true, kontroluj = cisla[0].trim())
-            men = getInt(ajNula = false, lenKontrola = true, kontroluj = cisla[1].trim())
+            cit = checkInt(ajNulaMozna = true, preved = cisla[0].trim())
+            men = checkInt(ajNulaMozna = false, preved = cisla[1].trim())
         }
         else
         {
-            cit = getInt(lenKontrola = true, kontroluj = zlom)
+            cit = checkInt(ajNulaMozna = true, preved = zlom)
             men = 1
         }
     }
 
     override fun toString(): String
     {
-        return cit.toString() + "/" + men.toString()
+        return "$cit/$men"
     }
 }
