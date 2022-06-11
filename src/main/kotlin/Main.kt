@@ -14,8 +14,12 @@ fun main()
     println(z2)
     val z3=Zlomok(3,4)
     println(z3)*/
-    val z4 = Zlomok("5/20")
-    val z6 = Zlomok("18/27")
-    val z = z4 + z6
-    print("$z4 + $z6 = $z")
+    val z4 = Zlomok("5/20+4/10")
+    val z5 = Zlomok("5/20-4/10")
+    val z6 = Zlomok("5/20*4/10")
+    val z7 = Zlomok("5/20:4/10")
+    //val z6 = Zlomok("18/27")
+    //val z = z4 + z6
+    //print("$z4 + $z6 = $z")
+
 }
