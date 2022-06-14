@@ -77,56 +77,37 @@ class Zlomok(private var cit: Int, private var men: Int = 1)
 
     constructor(zlom: String) : this(0, 1)
     {
-        val oddelovace="+-*:"
-        if (zlom.containsLatinMath) //ak je sucastou vyrazu operacia
+        if (zlom.containsLatinMath) //ak je sucastou vyrazu operacia +-*:
         {
-            when
+            val oddelovace = setOf("+","-","*",":")
+            for (z in oddelovace)
             {
-                zlom.contains('+') ->
+                if (z in zlom)
                 {
-                    val zlomky =zlom.split("+")
-                    val c=dajZlomok(zlomky[0])
-                    val m=dajZlomok(zlomky[1])
-                    println ("$c + $m = ${c+m}")
+                    val zlomky = zlom.split(z)
+                    val c = dajZlomok(zlomky[0])
+                    val m = dajZlomok(zlomky[1])
+                    when(z)
+                    {
+                        "+"->println("$c $z $m = ${c + m}")
+                        "-"->println("$c $z $m = ${c - m}")
+                        "*"->println("$c $z $m = ${c * m}")
+                        ":"->println("$c $z $m = ${c / m}")
+                    }
+                    break
                 }
-                zlom.contains('-') ->
-                {
-                    zlom.split("-")
-                    val zlomky =zlom.split("-")
-                    val c=dajZlomok(zlomky[0])
-                    val m=dajZlomok(zlomky[1])
-                    println ("$c - $m = ${c-m}")
-                }
-                zlom.contains('*') ->
-                {
-                    zlom.split("*")
-                    val zlomky =zlom.split("*")
-                    val c=dajZlomok(zlomky[0])
-                    val m=dajZlomok(zlomky[1])
-                    println ("$c * $m = ${c*m}")
-                }
-                zlom.contains(':') ->
-                {
-                    zlom.split(":")
-                    val zlomky =zlom.split(":")
-                    val c=dajZlomok(zlomky[0])
-                    val m=dajZlomok(zlomky[1])
-                    println ("$c / $m = ${c/m}")
-                }
-                else -> print("Chyba")
             }
-
         }
         else
         {
             dajZlomok(zlom)
         }
-
     }
 
     private fun dajZlomok(zlom: String): Zlomok
     {
-        if (zlom.indexOf("/") != -1) //je tam lonitko
+        //if (zlom.indexOf("/") != -1) //je tam lonitko
+        if (zlom.contains("/") )
         {
             val cisla = zlom.split(Regex("/"))
             this.cit = checkInt(ajNulaMozna = true, preved = cisla[0].trim())
@@ -153,8 +134,8 @@ class Zlomok(private var cit: Int, private var men: Int = 1)
     operator fun times(other: Zlomok) = Zlomok(cit * other.cit, men * other.men)
     operator fun div(other: Zlomok) = Zlomok(cit * other.men, men * other.cit)
 
-    val String.containsLatinMath: Boolean
-        get() = matches(Regex(".*[+*:/-].*"))
+    private val String.containsLatinMath: Boolean
+        get() = matches(Regex(".*[+*:-].*"))
 
     private fun nsd(nom: Int, den: Int): Int
     {
